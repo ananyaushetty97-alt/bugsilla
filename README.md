@@ -36,6 +36,10 @@ The named `bugsilla-data` volume persists the SQLite database and uploads. Back 
 docker compose exec bugsilla tar -czf - /app/data > bugsilla-backup.tar.gz
 ```
 
+## Deploy to Render
+
+This repository includes a `render.yaml` Blueprint for a free Docker web service in Singapore. In Render, select **New > Blueprint** and connect this GitHub repository. The free plan is suitable for a competition demo, but its filesystem is ephemeral: accounts, issues, attachments, and local notification history reset whenever Render restarts or redeploys the service.
+
 ## Production deployment notes
 
 Run `npm run build` before `npm start`; in production the Express server serves the compiled React app and API from the same origin. Set these environment variables in your host dashboard:
@@ -48,7 +52,7 @@ Run `npm run build` before `npm start`; in production the Express server serves 
 | `SMTP_URL` | Optional | SMTP connection URL for email notification delivery. |
 | `SMTP_FROM` | Optional | Sender address for notification email. |
 
-Use a host with a persistent volume mounted at `/app/data`. The SQLite database and attachments are intentionally not committed to Git.
+For a durable production deployment, use a host with a persistent volume mounted at `/app/data`. The free Render Blueprint intentionally skips persistent storage to avoid cost; its SQLite database and attachments are temporary. These runtime files are not committed to Git.
 
 ## Security notes
 
