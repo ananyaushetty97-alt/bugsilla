@@ -1,0 +1,16 @@
+services:
+  bugsilla:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3001}
+      SMTP_URL: ${SMTP_URL:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+    volumes:
+      - bugsilla-data:/app/data
+
+volumes:
+  bugsilla-data:
